@@ -4,7 +4,6 @@ import {
   FaNodeJs,
   FaGitAlt,
   FaQuestionCircle,
-  FaPeopleCarry,
   FaServer,
   FaMobile,
   FaCode 
