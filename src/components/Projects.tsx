@@ -7,7 +7,7 @@ import {
   FaPeopleCarry,
   FaServer,
   FaMobile,
-  FaCode
+  FaCode 
 } from 'react-icons/fa';
 import { 
   SiPostman, 
@@ -22,8 +22,8 @@ import {
 } from 'react-icons/si';
 
 // Mapeo de tecnologías a iconos
-const techIcons: Record<string, JSX.Element> = {
-  'Selenium': <FaBug className="text-red-500 text-lg" />, // Usando FaBug como alternativa
+const techIcons: Record<string, React.ReactNode> = {
+  'Selenium': <FaBug className="text-red-500 text-lg" />,
   'JMeter': <SiApachejmeter className="text-blue-500 text-lg" />,
   'Postman': <SiPostman className="text-orange-500 text-lg" />,
   'JIRA': <FaJira className="text-blue-600 text-lg" />,
@@ -31,7 +31,7 @@ const techIcons: Record<string, JSX.Element> = {
   'TestRail': <SiTestrail className="text-blue-400 text-lg" />,
   'Charles Proxy': <SiCharles className="text-purple-500 text-lg" />,
   'GitLab CI': <SiGitlab className="text-orange-600 text-lg" />,
-  'Newman': <SiNewrelic className="text-gray-700 dark:text-gray-300 text-lg" />, // Alternativa
+  'Newman': <SiNewrelic className="text-gray-700 dark:text-gray-300 text-lg" />,
   'Node.js': <FaNodeJs className="text-green-500 text-lg" />,
   'Mocha': <SiMocha className="text-yellow-600 text-lg" />,
   'Agile Methodologies': <SiScrumalliance className="text-purple-600 text-lg" />,
@@ -40,6 +40,7 @@ const techIcons: Record<string, JSX.Element> = {
   'Performance Testing': <FaServer className="text-green-500 text-lg" />,
   'Mobile Testing': <FaMobile className="text-blue-400 text-lg" />
 };
+
 
 interface Project {
   title: string
