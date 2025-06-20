@@ -8,7 +8,7 @@ interface HeaderProps {
 export default function Header({ darkMode, setDarkMode }: HeaderProps) {
   return (
     <header className="flex justify-between items-center py-6 mb-8">
-      <h1 className="text-2xl font-bold text-qa-primary">QA Tester Portfolio</h1>
+      <h1 className="text-2xl font-bold text-qa-primary"></h1>
       <nav className="flex items-center space-x-6">
         <a href="#skills" className="hover:text-qa-primary transition">Skills</a>
         <a href="#projects" className="hover:text-qa-primary transition">Projects</a>

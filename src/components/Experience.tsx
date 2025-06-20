@@ -1,29 +1,28 @@
 interface ExperienceItem {
   position: string
   company: string
-  period: string
   responsibilities: string[]
 }
 
 const experience: ExperienceItem[] = [
   {
-    position: 'Senior QA Engineer',
-    company: 'Tech Solutions Inc.',
-    period: '2020 - Present',
+    position: 'QA Engineer',
+    company: 'Various Companies',
     responsibilities: [
-      'Lead a team of 5 QA testers in agile environment',
-      'Developed automated test scripts reducing regression time by 60%',
-      'Implemented CI/CD pipeline integration for automated testing'
+      'Experience in manual and automated testing to ensure software quality.',
+      'Leading testing efforts and collaborating closely with development teams.',
+      'Creating and maintaining test plans, cases, and reports.',
+      'Familiar with tools like JIRA, Selenium, and CI/CD integration.'
     ]
   },
   {
-    position: 'QA Tester',
-    company: 'Digital Innovations LLC',
-    period: '2017 - 2020',
+    position: 'Web Developer',
+    company: 'Various Projects',
     responsibilities: [
-      'Performed manual and automated testing for web applications',
-      'Created detailed test plans and test cases',
-      'Reported and tracked bugs using JIRA'
+      'Developing responsive and user-friendly web applications.',
+      'Working with HTML, CSS, JavaScript and modern frameworks.',
+      'Collaborating with designers and backend developers.',
+      'Maintaining and optimizing code for performance and scalability.'
     ]
   }
 ]
@@ -48,18 +47,15 @@ export default function Experience() {
             data-aos-duration="600"
           >
             <h3 className="text-xl font-semibold">{exp.position}</h3>
-            <div className="flex justify-between items-baseline mb-4">
-              <p className="text-qa-primary font-medium">{exp.company}</p>
-              <p className="text-gray-600 dark:text-gray-300">{exp.period}</p>
-            </div>
+            <p className="text-qa-primary font-medium mb-4">{exp.company}</p>
             <ul className="list-disc pl-5 space-y-2 dark:text-gray-100">
               {exp.responsibilities.map((resp, i) => (
                 <li 
                   key={i}
                   data-aos="fade-right"
                   data-aos-delay={index * 100}
-                   data-aos-offset="2"
-            data-aos-duration="6"
+                  data-aos-offset="2"
+                  data-aos-duration="6"
                 >
                   {resp}
                 </li>

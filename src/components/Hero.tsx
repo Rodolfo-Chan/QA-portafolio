@@ -9,13 +9,11 @@ const Hero: FC = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Hi, I'm <span className="text-qa-primary">Rodolfo</span>
           </h2>
-          <h3 className="text-2xl md:text-3xl font-semibold mb-6">
-            Quality Assurance Engineer
+          <h3 className="text-2xl md:text-3xl font-semibold mb-4">
+            QA Engineer & Web Developer
           </h3>
           <p className="text-lg mb-8">
-            With one year of experience in manual and automated testing,
-            I ensure software quality through comprehensive test strategies
-            and attention to detail.
+            I have experience in software testing and web development, ensuring quality and building modern, responsive applications.
           </p>
           <div className="flex space-x-4">
             <a
@@ -33,14 +31,10 @@ const Hero: FC = () => {
           </div>
         </div>
         <div className="md:w-1/2 flex justify-center relative">
-          {/* Contenedor de la imagen con animación */}
           <div className="relative">
-            {/* Anillos de onda */}
             <div className="absolute inset-0 rounded-full border-2 border-qa-primary animate-wave-1"></div>
             <div className="absolute inset-0 rounded-full border-2 border-qa-primary animate-wave-2"></div>
             <div className="absolute inset-0 rounded-full border-2 border-qa-primary animate-wave-3"></div>
-            
-            {/* Imagen de perfil */}
             <div className="relative z-10">
               <img
                 src={profileImage}
@@ -52,8 +46,7 @@ const Hero: FC = () => {
         </div>
       </div>
 
-      {/* Estilos para las animaciones */}
-      <style >{`
+      <style>{`
         @keyframes wave {
           0% {
             transform: scale(1);
