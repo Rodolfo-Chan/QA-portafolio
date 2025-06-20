@@ -1,5 +1,5 @@
 import {
-  FaBug, FaNodeJs, FaGitAlt, FaCode, FaDatabase, FaReact
+   FaNodeJs, FaGitAlt, FaCode, FaDatabase, FaReact
 } from 'react-icons/fa';
 import {
   SiPostman, SiDjango, SiTailwindcss, SiVite, SiMysql,
