@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   FaNodeJs, FaGitAlt, FaCode, FaDatabase, FaReact
 } from 'react-icons/fa';
@@ -7,6 +6,7 @@ import {
   SiTypescript, SiMocha, SiNewrelic, SiPhp, SiBootstrap
 } from 'react-icons/si';
 import { LuServer } from 'react-icons/lu';
+import { useState, useEffect } from 'react';
 import agua1 from '../assets/images/agua1.png';
 import agua2 from '../assets/images/agua2.png';
 import agua3 from '../assets/images/agua3.png';
@@ -79,7 +79,7 @@ const projects: Project[] = [
           <li>Cost Management</li>
           <li>User Management</li>
           <li>Invoice Management</li>
-          <li>MySQL Relational Database</li>
+          <li>MySl Relational Database</li>
         </ul>
       </>
     ),
@@ -90,44 +90,43 @@ const projects: Project[] = [
 ];
 
 export default function Projects() {
-  // Estado para el modal
-  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
-  const [activeProject, setActiveProject] = useState<Project | null>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [imageList, setImageList] = useState<string[]>([]);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
 
-  const openModal = (project: Project, index: number) => {
-    setActiveProject(project);
-    setSelectedImageIndex(index);
-  };
+  // cerrar con ESC
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedImage(null);
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, []);
 
-  const closeModal = () => {
-    setSelectedImageIndex(null);
-    setActiveProject(null);
-  };
-
-  const prevImage = () => {
-    if (activeProject && selectedImageIndex !== null) {
-      setSelectedImageIndex(
-        (selectedImageIndex - 1 + activeProject.images!.length) % activeProject.images!.length
-      );
-    }
+  const openModal = (images: string[], index: number) => {
+    setImageList(images);
+    setCurrentIndex(index);
+    setSelectedImage(images[index]);
   };
 
   const nextImage = () => {
-    if (activeProject && selectedImageIndex !== null) {
-      setSelectedImageIndex(
-        (selectedImageIndex + 1) % activeProject.images!.length
-      );
-    }
+    const newIndex = (currentIndex + 1) % imageList.length;
+    setCurrentIndex(newIndex);
+    setSelectedImage(imageList[newIndex]);
+  };
+
+  const prevImage = () => {
+    const newIndex = (currentIndex - 1 + imageList.length) % imageList.length;
+    setCurrentIndex(newIndex);
+    setSelectedImage(imageList[newIndex]);
   };
 
   return (
     <section id="projects" className="py-12">
-      <h2
-        className="text-3xl font-bold mb-8 text-center"
+      <h2 className="text-3xl font-bold mb-8 text-center"
         data-aos="fade-down"
         data-aos-offset="300"
-        data-aos-duration="800"
-      >
+        data-aos-duration="800">
         Projects
       </h2>
 
@@ -168,8 +167,8 @@ export default function Projects() {
                     key={idx}
                     src={imgSrc}
                     alt={`${project.title} - ${idx + 1}`}
-                    className="w-40 h-28 object-cover rounded-lg shadow-md cursor-pointer hover:scale-105 transition"
-                    onClick={() => openModal(project, idx)}
+                    className="w-40 h-28 object-cover rounded-lg shadow-md cursor-pointer transition-transform hover:scale-105"
+                    onClick={() => openModal(project.images!, idx)}
                   />
                 ))}
               </div>
@@ -194,39 +193,33 @@ export default function Projects() {
       </div>
 
       {/* Modal */}
-      {activeProject && selectedImageIndex !== null && (
+      {selectedImage && (
         <div
           className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
+          onClick={() => setSelectedImage(null)}
         >
-          <div className="relative flex items-center">
-            {/* Botón Anterior */}
+          <div
+            className="relative max-w-4xl w-full px-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={selectedImage}
+              alt="Project"
+              className="w-full max-h-[80vh] object-contain rounded-lg shadow-lg"
+            />
+
+            {/* Botones navegación mejorados */}
             <button
-              className="absolute left-[-60px] bg-gray-700 text-white px-3 py-2 rounded-full hover:bg-gray-600"
               onClick={prevImage}
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 font-bold p-3 rounded-full shadow-md transition"
             >
               ◀
             </button>
-
-            <img
-              src={activeProject.images![selectedImageIndex]}
-              alt="Selected"
-              className="max-w-[90vw] max-h-[80vh] rounded-lg shadow-lg"
-            />
-
-            {/* Botón Siguiente */}
             <button
-              className="absolute right-[-60px] bg-gray-700 text-white px-3 py-2 rounded-full hover:bg-gray-600"
               onClick={nextImage}
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 font-bold p-3 rounded-full shadow-md transition"
             >
               ▶
-            </button>
-
-            {/* Cerrar */}
-            <button
-              className="absolute top-[-50px] right-0 bg-red-600 text-white px-3 py-1 rounded-full shadow-md hover:bg-red-700"
-              onClick={closeModal}
-            >
-              ✕
             </button>
           </div>
         </div>
