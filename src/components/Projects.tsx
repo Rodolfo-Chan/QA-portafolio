@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   FaNodeJs, FaGitAlt, FaCode, FaDatabase, FaReact
 } from 'react-icons/fa';
@@ -42,33 +43,6 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: 'API Test Automation',
-    description: 'Created an automated test suite for REST API endpoints with data-driven testing approach.',
-    technologies: ['Postman', 'Newman', 'Node.js', 'Mocha'],
-    results: 'Reduced regression testing time from 8 hours to 45 minutes'
-  },
-  {
-    title: 'Gran Paradise Hotel Platform',
-    description: 'Web platform for showcasing hotel services, booking details, and information. Designed for user-friendly browsing and responsive layout.',
-    technologies: ['ReactJS', 'Vite', 'Tailwind CSS', 'Git'],
-    results: 'Responsive site for a luxury hotel with clean UI and smooth animations.',
-    link: 'https://granparadise.netlify.app'
-  },
-  {
-    title: 'Tallero Tec (Frontend & Backend)',
-    description: 'Administrative system for managing sports workshop registrations, students, and credits, built for a technology institute.',
-    technologies: ['ReactJS', 'TypeScript', 'Tailwind CSS', 'Django', 'MySQL', 'Git'],
-    results: 'Full-stack platform allowing efficient student and workshop tracking.',
-    link: 'https://tallerotec.netlify.app'
-  },
-  {
-    title: 'Medical Appointment System',
-    description: 'App to manage patients, appointments and consultation schedules. Includes frontend for interaction and backend for data processing.',
-    technologies: ['ReactJS', 'Tailwind CSS', 'Django', 'MySQL', 'Postman', 'API'],
-    results: 'Enabled easy appointment booking and reduced manual errors in clinics.',
-    link: 'https://citasmedica.netlify.app/'
-  },
-  {
     title: 'Potable Water Management Platform',
     description: (
       <>
@@ -78,18 +52,20 @@ const projects: Project[] = [
           <li>Cost Management</li>
           <li>User Management</li>
           <li>Invoice Management</li>
-          <li>MySl Relational Database</li>
+          <li>MySQL Relational Database</li>
         </ul>
       </>
     ),
     technologies: ['PHP', 'MySQL', 'Bootstrap', 'XAMPP'],
     results: 'Automated invoice generation and organized user/tap registration process.',
-    images: [agua1, agua2, agua3,agua4]
-
+    images: [agua1, agua2, agua3, agua4]
   }
 ];
 
 export default function Projects() {
+  // Estado para manejar la imagen seleccionada
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   return (
     <section id="projects" className="py-12">
       <h2 className="text-3xl font-bold mb-8 text-center"
@@ -136,7 +112,8 @@ export default function Projects() {
                     key={idx}
                     src={imgSrc}
                     alt={`${project.title} - ${idx + 1}`}
-                    className="w-40 h-28 object-cover rounded-lg shadow-md"
+                    className="w-40 h-28 object-cover rounded-lg shadow-md cursor-pointer hover:scale-105 transition"
+                    onClick={() => setSelectedImage(imgSrc)} // 👈 al dar click abre modal
                   />
                 ))}
               </div>
@@ -160,24 +137,27 @@ export default function Projects() {
         ))}
       </div>
 
-      {/* Extra contribution section */}
-      <div
-        className="mt-12 bg-yellow-100 dark:bg-yellow-900 p-6 rounded-lg shadow-md"
-        data-aos="fade-up"
-        data-aos-delay="600"
-      >
-        <h3 className="text-2xl font-semibold text-yellow-800 dark:text-yellow-300 mb-2">
-          Additional Contribution
-        </h3>
-        <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmbGg2Eu3v9bcMdODijlCCLnMPSfnF4KvfGA&s"
-          alt="HapyWallet"
-          className="w-24 h-24 mb-4 rounded-full object-cover"
-        />
-        <p className="text-gray-800 dark:text-gray-100">
-          I also created the <strong>User Manual</strong> for the <strong>HapyWallet</strong> platform and performed thorough verification to ensure that all <strong>functional requirements</strong> were fully met and documented.
-        </p>
-      </div>
+      {/* Modal para mostrar imagen grande */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+          onClick={() => setSelectedImage(null)} // Cerrar al hacer click fuera
+        >
+          <div className="relative">
+            <img
+              src={selectedImage}
+              alt="Selected"
+              className="max-w-[90vw] max-h-[80vh] rounded-lg shadow-lg"
+            />
+            <button
+              className="absolute top-2 right-2 bg-red-600 text-white px-3 py-1 rounded-full shadow-md hover:bg-red-700"
+              onClick={() => setSelectedImage(null)}
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
