@@ -1,11 +1,15 @@
 import {
-   FaNodeJs, FaGitAlt, FaCode, FaDatabase, FaReact
+  FaNodeJs, FaGitAlt, FaCode, FaDatabase, FaReact
 } from 'react-icons/fa';
 import {
   SiPostman, SiDjango, SiTailwindcss, SiVite, SiMysql,
   SiTypescript, SiMocha, SiNewrelic, SiPhp, SiBootstrap
 } from 'react-icons/si';
 import { LuServer } from 'react-icons/lu';
+import agua1 from '../assets/images/agua1.png';
+import agua2 from '../assets/images/agua2.png';
+import agua3 from '../assets/images/agua3.png';
+import agua4 from '../assets/images/agua4.png';
 
 const techIcons: Record<string, React.ReactNode> = {
   'ReactJS': <FaReact className="text-blue-500 text-lg" />,
@@ -29,10 +33,11 @@ const techIcons: Record<string, React.ReactNode> = {
 
 interface Project {
   title: string;
-  description: string;
+  description: React.ReactNode | string;
   technologies: string[];
   results: string;
   link?: string;
+  images?: string[];
 }
 
 const projects: Project[] = [
@@ -40,8 +45,7 @@ const projects: Project[] = [
     title: 'API Test Automation',
     description: 'Created an automated test suite for REST API endpoints with data-driven testing approach.',
     technologies: ['Postman', 'Newman', 'Node.js', 'Mocha'],
-    results: 'Reduced regression testing time from 8 hours to 45 minutes',
-    link: ''
+    results: 'Reduced regression testing time from 8 hours to 45 minutes'
   },
   {
     title: 'Gran Paradise Hotel Platform',
@@ -66,10 +70,22 @@ const projects: Project[] = [
   },
   {
     title: 'Potable Water Management Platform',
-    description: 'System developed to manage users and water meter connections, as well as to generate invoices for a local water service. Enables efficient billing and record-keeping.',
+    description: (
+      <>
+        System developed to manage users and water meter connections, as well as to generate invoices for a local water service.
+        Enables efficient billing and record-keeping.
+        <ul className="list-disc list-inside mt-2">
+          <li>Cost Management</li>
+          <li>User Management</li>
+          <li>Invoice Management</li>
+          <li>MySl Relational Database</li>
+        </ul>
+      </>
+    ),
     technologies: ['PHP', 'MySQL', 'Bootstrap', 'XAMPP'],
     results: 'Automated invoice generation and organized user/tap registration process.',
-    link: 'http://localhost/agua/index.php'
+    images: [agua1, agua2, agua3,agua4]
+
   }
 ];
 
@@ -82,6 +98,7 @@ export default function Projects() {
         data-aos-duration="800">
         Projects
       </h2>
+
       <div className="space-y-8">
         {projects.map((project, index) => (
           <div
@@ -111,6 +128,19 @@ export default function Projects() {
                 ))}
               </div>
             </div>
+
+            {project.images && (
+              <div className="flex flex-wrap gap-4 mt-4">
+                {project.images.map((imgSrc, idx) => (
+                  <img
+                    key={idx}
+                    src={imgSrc}
+                    alt={`${project.title} - ${idx + 1}`}
+                    className="w-40 h-28 object-cover rounded-lg shadow-md"
+                  />
+                ))}
+              </div>
+            )}
 
             <div className="bg-green-100 dark:bg-blue-900 p-3 rounded-lg mb-2">
               <span className="font-semibold">Key Results:</span> {project.results}
@@ -151,4 +181,3 @@ export default function Projects() {
     </section>
   );
 }
-
