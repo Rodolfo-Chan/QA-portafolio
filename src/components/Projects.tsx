@@ -63,11 +63,22 @@ const projects: Project[] = [
     link: 'https://tallerotec.netlify.app'
   },
   {
-    title: 'Medical Appointment System',
-    description: 'App to manage patients, appointments and consultation schedules. Includes frontend for interaction and backend for data processing.',
-    technologies: ['ReactJS', 'Tailwind CSS', 'Django', 'MySQL', 'Postman', 'API'],
-    results: 'Enabled easy appointment booking and reduced manual errors in clinics.',
-    link: 'https://citasmedica.netlify.app/'
+    title: 'Landing Page - Auto Market',
+    description: (
+      <>
+        Landing page for Auto Market, a car marketplace platform.
+        Features include login functionality, car catalog sorted by brand, and promotions.
+        Designed for responsive display and ease of navigation.
+        <ul className="list-disc list-inside mt-2">
+          <li>Login system</li>
+          <li>Car catalog by brands</li>
+          <li>Promotions section</li>
+        </ul>
+      </>
+    ),
+    technologies: ['ReactJS', 'Tailwind CSS', 'React Icons'],
+    results: 'Attractive, responsive landing page with clear navigation and promotional highlights.',
+    link: 'https://majestic-pavlova-0edea1.netlify.app/'
   },
   {
     title: 'Potable Water Management Platform',
@@ -79,14 +90,15 @@ const projects: Project[] = [
           <li>Cost Management</li>
           <li>User Management</li>
           <li>Invoice Management</li>
-          <li>MySl Relational Database</li>
+          <li>MySQL Relational Database</li>
         </ul>
       </>
     ),
     technologies: ['PHP', 'MySQL', 'Bootstrap', 'XAMPP'],
     results: 'Automated invoice generation and organized user/tap registration process.',
     images: [agua1, agua2, agua3, agua4]
-  }
+  },
+  
 ];
 
 export default function Projects() {
@@ -208,7 +220,7 @@ export default function Projects() {
               className="w-full max-h-[80vh] object-contain rounded-lg shadow-lg"
             />
 
-            {/* Botones navegación mejorados */}
+            {/* Botones navegación */}
             <button
               onClick={prevImage}
               className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 font-bold p-3 rounded-full shadow-md transition"
