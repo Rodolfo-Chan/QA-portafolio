@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   FaNodeJs, FaGitAlt, FaCode, FaDatabase, FaReact
 } from 'react-icons/fa';
@@ -78,24 +79,55 @@ const projects: Project[] = [
           <li>Cost Management</li>
           <li>User Management</li>
           <li>Invoice Management</li>
-          <li>MySl Relational Database</li>
+          <li>MySQL Relational Database</li>
         </ul>
       </>
     ),
     technologies: ['PHP', 'MySQL', 'Bootstrap', 'XAMPP'],
     results: 'Automated invoice generation and organized user/tap registration process.',
-    images: [agua1, agua2, agua3,agua4]
-
+    images: [agua1, agua2, agua3, agua4]
   }
 ];
 
 export default function Projects() {
+  // Estado para el modal
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+  const [activeProject, setActiveProject] = useState<Project | null>(null);
+
+  const openModal = (project: Project, index: number) => {
+    setActiveProject(project);
+    setSelectedImageIndex(index);
+  };
+
+  const closeModal = () => {
+    setSelectedImageIndex(null);
+    setActiveProject(null);
+  };
+
+  const prevImage = () => {
+    if (activeProject && selectedImageIndex !== null) {
+      setSelectedImageIndex(
+        (selectedImageIndex - 1 + activeProject.images!.length) % activeProject.images!.length
+      );
+    }
+  };
+
+  const nextImage = () => {
+    if (activeProject && selectedImageIndex !== null) {
+      setSelectedImageIndex(
+        (selectedImageIndex + 1) % activeProject.images!.length
+      );
+    }
+  };
+
   return (
     <section id="projects" className="py-12">
-      <h2 className="text-3xl font-bold mb-8 text-center"
+      <h2
+        className="text-3xl font-bold mb-8 text-center"
         data-aos="fade-down"
         data-aos-offset="300"
-        data-aos-duration="800">
+        data-aos-duration="800"
+      >
         Projects
       </h2>
 
@@ -136,7 +168,8 @@ export default function Projects() {
                     key={idx}
                     src={imgSrc}
                     alt={`${project.title} - ${idx + 1}`}
-                    className="w-40 h-28 object-cover rounded-lg shadow-md"
+                    className="w-40 h-28 object-cover rounded-lg shadow-md cursor-pointer hover:scale-105 transition"
+                    onClick={() => openModal(project, idx)}
                   />
                 ))}
               </div>
@@ -159,6 +192,45 @@ export default function Projects() {
           </div>
         ))}
       </div>
+
+      {/* Modal */}
+      {activeProject && selectedImageIndex !== null && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
+        >
+          <div className="relative flex items-center">
+            {/* Botón Anterior */}
+            <button
+              className="absolute left-[-60px] bg-gray-700 text-white px-3 py-2 rounded-full hover:bg-gray-600"
+              onClick={prevImage}
+            >
+              ◀
+            </button>
+
+            <img
+              src={activeProject.images![selectedImageIndex]}
+              alt="Selected"
+              className="max-w-[90vw] max-h-[80vh] rounded-lg shadow-lg"
+            />
+
+            {/* Botón Siguiente */}
+            <button
+              className="absolute right-[-60px] bg-gray-700 text-white px-3 py-2 rounded-full hover:bg-gray-600"
+              onClick={nextImage}
+            >
+              ▶
+            </button>
+
+            {/* Cerrar */}
+            <button
+              className="absolute top-[-50px] right-0 bg-red-600 text-white px-3 py-1 rounded-full shadow-md hover:bg-red-700"
+              onClick={closeModal}
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Extra contribution section */}
       <div
